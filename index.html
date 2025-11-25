@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelajahi Dunia - Pesan Tiket Anda Sekarang!</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Memuat Font Google (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/paper_plane_icon.png" type="image/x-icon">
+    <style>
+        /* Menggunakan font Inter secara default */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Biru sangat muda (Tailwind sky-50) */
+        }
+        /* Definisi Warna Biru Kustom (Lebih Kalem/Muda) */
+        .color-primary {
+            background-color: #0ea5e9; /* Biru Langit (Tailwind sky-500) */
+        }
+        .text-primary {
+            color: #0ea5e9;
+        }
+        .text-accent {
+            color: #0ea5e9; 
+        }
+        .bg-accent-light {
+             background-color: #bae6fd; /* Biru muda (Tailwind sky-200) */
+        }
+        .border-primary {
+            border-color: #0ea5e9;
+        }
+        /* Gaya untuk Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #0ea5e9; /* Warna spinner biru kalem */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Gaya untuk navigasi agar tetap di atas */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        /* Responsif untuk gambar pada kartu */
+        .card-image {
+            height: 200px; 
+            object-fit: cover;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7dd3fc; /* Light blue */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0ea5e9; /* Medium blue */
+        }
+        /* Gaya Kustom untuk Hero Image Placeholder */
+        .hero-banner {
+            background-image: url('img/home1.jpg    ');
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigasi Bar -->
+    <nav class="sticky-nav bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#" class="flex-shrink-0 flex items-center">
+                    <svg class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                    <span class="ml-2 text-xl font-extrabold text-gray-900">Jelajah.id</span>
+                </a>
+                <!-- Menu Desktop -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#home" class="text-gray-900 hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Beranda</a>
+                    <a href="destination.html" class="text-gray-900 hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Destinasi</a>
+                    <!-- Tombol Pesan Tiket tetap ada dan mengarahkan ke Search Widget -->
+                </div>
+                <!-- Menu Mobile Button -->
+                <div class="sm:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden sm:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">Beranda</a>
+                <a href="#keunggulan" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">Mengapa Kami</a>
+                <a href="#destinasi" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">Destinasi</a>
+                <a href="#komentar" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">Komentar</a>
+                <a href="#search-widget" class="block px-3 py-2 rounded-full text-base font-medium text-white color-primary text-center">Pesan Tiket</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- Bagian Hero/Beranda (Visual & CTA) -->
+        <section id="home" class="mb-16 pt-10 pb-20 bg-white rounded-2xl shadow-xl">
+            <div data-aos="fade-up" class="max-w-6xl mx-auto px-4">
+                <!-- Visual Banner Placeholder -->
+                <div class="relative hero-banner bg-cover bg-center rounded-2xl overflow-hidden shadow-2xl" 
+                     style="height: 400px;">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                        <div class="text-center text-white p-8">
+                            <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 leading-tight" data-aos="fade-right">
+                                Mulai Perjalanan Anda Sekarang
+                            </h1>
+                            <p class="text-xl sm:text-2xl font-light mb-8" data-aos="fade-left" data-aos-delay="200">
+                                Jelajahi 1000+ destinasi terbaik dunia.
+                            </p>
+                            <!-- CTA mengarahkan ke search widget di bawah -->
+                            <a href="#search-widget" class="inline-block px-8 py-3 color-primary text-white text-lg font-bold rounded-full shadow-2xl hover:bg-sky-600 transition duration-300 transform hover:scale-105" data-aos="zoom-in" data-aos-delay="400">
+                                Cari Tiket &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget Pencarian Cepat (Ditempatkan di bawah Banner) -->
+                <div id="search-widget" data-aos="fade-up" data-aos-delay="600" class="relative -mt-16 z-10 bg-white p-6 sm:p-8 rounded-xl shadow-2xl border-t-4 border-primary max-w-4xl mx-auto w-full"> 
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 border-b border-primary/50 pb-4">Cari Penerbangan Cepat</h3>
+                    
+                    <!-- Form Pencarian Cepat -->
+                    <form class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                        
+                        <!-- Asal -->
+                        <div>
+                            <label for="search_asal" class="block text-xs font-semibold text-gray-700 uppercase">Asal</label>
+                            <input type="text" id="search_asal" placeholder="Jakarta (CGK)" class="w-full mt-1 p-3 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent shadow-sm">
+                        </div>
+                        
+                        <!-- Tujuan -->
+                        <div>
+                            <label for="search_tujuan" class="block text-xs font-semibold text-gray-700 uppercase">Tujuan</label>
+                            <input type="text" id="search_tujuan" placeholder="Bali (DPS)" class="w-full mt-1 p-3 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent shadow-sm">
+                        </div>
+                        
+                        <!-- Tanggal -->
+                        <div>
+                            <label for="search_tanggal" class="block text-xs font-semibold text-gray-700 uppercase">Tanggal Berangkat</label>
+                            <input type="date" id="search_tanggal" class="w-full mt-1 p-3 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent bg-white shadow-sm">
+                        </div>
+                        
+                        <!-- Tombol Cari -->
+                        <div class="md:col-span-1">
+                            <button type="button" onclick="quickSearch()" class="w-full color-primary text-white font-bold px-4 py-3 rounded-lg shadow-xl hover:bg-sky-600 transition duration-300 transform hover:scale-[1.02]">
+                                <svg class="w-5 h-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                Cari
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Pesan Konfirmasi (Dapat digunakan untuk hasil pencarian) -->
+                    <div id="confirmation-message" class="hidden mt-4 p-3 bg-blue-100 border border-blue-400 text-blue-700 rounded-lg text-center text-sm" role="alert">
+                        <p id="confirmation-text"></p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Keunggulan (Apa yang Orang Bilang / Testimoni) -->
+        <section id="keunggulan" class="mb-20 py-10 bg-accent-light rounded-2xl shadow-inner">
+            <div class="text-center mb-12">
+                <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">
+                    Mengapa Memilih Jelajah.id?
+                </h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-lg text-gray-600">
+                    Kami selalu memberikan pengalaman terbaik dan termudah bagi traveler kami.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+                <!-- Keunggulan 1: Pesan Cepat -->
+                <div data-aos="flip-up" data-aos-delay="200" class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-primary">
+                    <p class="text-4xl text-primary mb-3">★</p>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Pesan Cepat</h4>
+                    <p class="text-gray-600 text-sm">"Prosesnya sangat mudah dan cepat, kurang dari 5 menit tiket sudah di tangan!" - Rina S.</p>
+                </div>
+                <!-- Keunggulan 2: Harga Terbaik -->
+                <div data-aos="flip-up" data-aos-delay="300" class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-primary">
+                    <p class="text-4xl text-primary mb-3">💰</p>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Harga Terbaik</h4>
+                    <p class="text-gray-600 text-sm">"Selalu dapat penawaran termurah dibandingkan platform lain. Benar-benar hemat!" - Budi H.</p>
+                </div>
+                <!-- Keunggulan 3: Transaksi Aman -->
+                <div data-aos="flip-up" data-aos-delay="400" class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-primary">
+                    <p class="text-4xl text-primary mb-3">🔒</p>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Transaksi Aman</h4>
+                    <p class="text-gray-600 text-sm">"Merasa aman bertransaksi, pembayaran diverifikasi instan dan data terlindungi." - Citra D.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Destinasi Pilihan -->
+        <section id="destinasi" class="mb-20 py-10">
+            <h2 data-aos="fade-up" class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12">
+                Destinasi Pilihan Kami
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Kartu 1: Pantai -->
+                <div data-aos="zoom-in" data-aos-delay="100" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 border border-gray-100">
+                    <img
+                        class="w-full card-image"
+                        src="img/place2.jpg"
+                        alt="Gambar Pantai"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/0ea5e9/ffffff?text=BALI+INDONESIA';"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Bali, Indonesia</h3>
+                        <p class="text-gray-600 text-sm">Surga tropis dengan ombak yang menawan dan budaya yang kaya. Sempurna untuk bersantai.</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-lg font-bold text-accent">Mulai dari Rp 1.5 Jt</span>
+                            <a href="#search-widget" class="text-accent hover:text-sky-600 font-semibold text-sm">Cek Harga &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kartu 2: Pegunungan -->
+                <div data-aos="zoom-in" data-aos-delay="200" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 border border-gray-100">
+                    <img
+                        class="w-full card-image"
+                        src="img/Swisss.webp"
+                        alt="Gambar Pegunungan"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/0ea5e9/ffffff?text=SWISS+ALPS';"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Swiss Alps, Swiss</h3>
+                        <p class="text-gray-600 text-sm">Puncak bersalju dan pemandangan hijau yang memukau. Ideal untuk pendaki dan pecinta alam.</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-lg font-bold text-accent">Mulai dari Rp 15 Jt</span>
+                            <a href="#search-widget" class="text-accent hover:text-sky-600 font-semibold text-sm">Cek Harga &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kartu 3: Kota Metropolitan -->
+                <div data-aos="zoom-in" data-aos-delay="300" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 border border-gray-100">
+                    <img
+                        class="w-full card-image"
+                        src="img/Japan 1.jpg"
+                        alt="Gambar Kota"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/0ea5e9/ffffff?text=TOKYO+JAPAN';"
+                    >
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Tokyo, Jepang</h3>
+                        <p class="text-gray-600 text-sm">Perpaduan modernitas dan tradisi kuno. Jelajahi kuil dan nikmati teknologi futuristik.</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-lg font-bold text-accent">Mulai dari Rp 8 Jt</span>
+                            <a href="#search-widget" class="text-accent hover:text-sky-600 font-semibold text-sm">Cek Harga &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bagian Komentar Pengguna (Baru) -->
+        <section id="komentar" class="py-10">
+            <div data-aos="fade-up" class="bg-white p-6 sm:p-10 rounded-2xl shadow-2xl border-t-8 border-primary">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-accent mb-8">
+                    Umpan Balik dan Komentar Pengguna
+                </h2>
+
+                <!-- Form Kirim Komentar -->
+                <form id="comment-form" class="mb-10 p-5 border border-sky-200 rounded-xl bg-sky-50 shadow-inner">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Tinggalkan Komentar Anda</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="md:col-span-1">
+                            <label for="comment_name" class="block text-sm font-semibold text-gray-700 mb-1">Nama Anda</label>
+                            <input type="text" id="comment_name" required class="w-full px-4 py-2 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Contoh: Andi S.">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="comment_text" class="block text-sm font-semibold text-gray-700 mb-1">Komentar/Ulasan</label>
+                            <textarea id="comment_text" required rows="3" class="w-full px-4 py-2 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Bagikan pengalaman Anda..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <button type="submit" class="color-primary text-white font-bold px-6 py-2 rounded-lg shadow-md hover:bg-sky-600 transition duration-300">
+                            Kirim Komentar
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Kontainer Komentar yang Sudah Ada -->
+                <div id="comments-container">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Komentar Terbaru</h3>
+                    
+                    <!-- Komentar Contoh 1 -->
+                    <div class="comment-item p-4 mb-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+                        <p class="font-bold text-gray-900">Putri L.</p>
+                        <p class="text-xs text-gray-500 mb-2">25 November 2025</p>
+                        <p class="text-gray-700">Pelayanannya cepat dan pilihan destinasi di Jelajah.id sangat lengkap! Akan memesan lagi untuk liburan tahun depan.</p>
+                    </div>
+                    
+                    <!-- Komentar Contoh 2 -->
+                    <div class="comment-item p-4 mb-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+                        <p class="font-bold text-gray-900">Joko B.</p>
+                        <p class="text-xs text-gray-500 mb-2">20 November 2025</p>
+                        <p class="text-gray-700">Interface website sangat user-friendly. Sangat terbantu dengan widget pencarian cepatnya.</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-6">
+                <p class="text-sm text-gray-400">
+                    &copy; 2024 Jelajah.id. Dibuat dengan desain bersih.
+                </p>
+                <div class="mt-4 md:mt-0 space-x-4 text-sm">
+                    <a href="#" class="hover:text-accent transition duration-150">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-accent transition duration-150">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Bagian JavaScript ---
+
+        // 1. Logika Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            // Sedikit delay untuk memastikan AOS sudah dimuat
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500); // Harus sesuai dengan durasi transisi CSS
+                
+                // 2. Inisialisasi AOS setelah halaman dimuat
+                AOS.init({
+                    // Tambahkan opsi global untuk animasi
+                    duration: 800,
+                    once: true, // Animasi hanya terjadi satu kali saat scroll ke bawah
+                });
+            }, 300); // Durasi loading preloader
+        });
+
+        // 3. Logika Menu Mobile
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 4. Logika Pencarian Cepat (Quick Search)
+        function quickSearch() {
+            const asal = document.getElementById('search_asal').value;
+            const tujuan = document.getElementById('search_tujuan').value;
+            const tanggal = document.getElementById('search_tanggal').value;
+
+            const konfirmasi = document.getElementById('confirmation-message');
+            const teksKonfirmasi = document.getElementById('confirmation-text');
+
+            konfirmasi.classList.remove('hidden', 'bg-green-100', 'border-green-400', 'text-green-700', 'bg-yellow-100', 'border-yellow-400', 'text-yellow-700');
+
+            if (asal && tujuan && tanggal) {
+                 teksKonfirmasi.innerHTML = `Pencarian untuk tiket dari <strong>${asal}</strong> ke <strong>${tujuan}</strong> pada tanggal <strong>${tanggal}</strong> sedang diproses. Mohon tunggu hasil terbaik.`;
+                 konfirmasi.classList.add('bg-blue-100', 'border-blue-400', 'text-blue-700'); 
+            } else {
+                 teksKonfirmasi.innerHTML = `Mohon lengkapi semua kolom untuk melakukan pencarian cepat.`;
+                 konfirmasi.classList.add('bg-yellow-100', 'border-yellow-400', 'text-yellow-700');
+            }
+            konfirmasi.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 5. Logika Kirim Komentar (Simulasi)
+        document.getElementById('comment-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah form melakukan submit default
+
+            const nameInput = document.getElementById('comment_name');
+            const textInput = document.getElementById('comment_text');
+            const name = nameInput.value.trim();
+            const text = textInput.value.trim();
+
+            if (!name || !text) {
+                alert('Nama dan Komentar tidak boleh kosong!'); // Penggunaan alert di sini hanya untuk contoh client-side validation
+                return;
+            }
+
+            const commentsContainer = document.getElementById('comments-container');
+            
+            // Format tanggal saat ini
+            const today = new Date();
+            const dateString = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            // Membuat elemen komentar baru
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment-item', 'p-4', 'mb-4', 'bg-sky-50', 'border', 'border-sky-300', 'rounded-lg', 'shadow-sm', 'animate-in', 'fade-in');
+            newComment.innerHTML = `
+                <p class="font-bold text-gray-900">${name}</p>
+                <p class="text-xs text-gray-500 mb-2">${dateString} (Baru Saja)</p>
+                <p class="text-gray-700">${text}</p>
+            `;
+
+            // Menambahkan komentar baru di bagian paling atas
+            const header = commentsContainer.querySelector('h3');
+            commentsContainer.insertBefore(newComment, header.nextSibling);
+
+            // Reset form
+            nameInput.value = '';
+            textInput.value = '';
+            
+            // Scroll ke komentar baru
+            newComment.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+    <!-- Memuat AOS dari CDN -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

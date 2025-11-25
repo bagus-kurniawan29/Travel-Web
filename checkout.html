@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiket- Jelajah.id</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Memuat Font Google (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/paper_plane_icon.png" type="image/x-icon">
+    <style>
+        /* Menggunakan font Inter secara default */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Biru sangat muda (Tailwind sky-50) */
+        }
+        /* Definisi Warna Biru Kustom (Tetap konsisten) */
+        .color-primary {
+            background-color: #0ea5e9; 
+        }
+        .text-accent {
+            color: #0ea5e9;
+        }
+        .border-primary {
+            border-color: #0ea5e9;
+        }
+        /* Gaya Khusus untuk E-Tiket */
+        .ticket-mockup {
+            font-family: 'Roboto Mono', monospace; /* Font monospace untuk kesan tiket */
+            background: linear-gradient(145deg, #ffffff, #f0f9ff);
+            border: 2px dashed #0ea5e9;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .barcode {
+            background: repeating-linear-gradient(90deg, #000, #000 1px, transparent 1px, transparent 2px);
+            width: 100%;
+            height: 50px;
+        }
+        /* Gaya untuk Spinner */
+        .spinner-small {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ffffff; 
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media print {
+            body {
+                background: none;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .ticket-mockup {
+                border: 1px solid #000;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigasi Bar (Versi Sederhana) -->
+    <nav class="sticky-nav bg-white shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="travel_website.html" class="flex-shrink-0 flex items-center text-xl font-extrabold text-gray-900">
+                    &larr; Kembali ke Jelajah.id
+                </a>
+                <span class="text-sm font-semibold text-accent">Halaman Pemesanan</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <section id="booking-section" class="mb-10">
+            <div data-aos="fade-up" class="bg-white p-6 sm:p-10 rounded-2xl shadow-2xl border-t-8 border-primary no-print">
+                
+                <div class="text-center mb-6">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-accent mb-2">
+                       Formulir pemesanan Tiket
+                    </h1>
+                    <p class="text-gray-600">Lengkapi data perjalanan Anda di bawah ini.</p>
+                </div>
+
+                <!-- Formulir Pemesanan Tiket -->
+                <form id="ticket-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Nama Lengkap -->
+                    <div>
+                        <label for="p_nama" class="block text-sm font-semibold text-gray-700 mb-1">Nama Lengkap</label>
+                        <input type="text" id="p_nama" required class="w-full px-4 py-2 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Nama sesuai ID">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="p_email" class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
+                        <input type="email" id="p_email" required class="w-full px-4 py-2 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Email untuk E-Ticket">
+                    </div>
+
+                    <!-- Tanggal Perjalanan -->
+                    <div>
+                        <label for="p_tanggal" class="block text-sm font-semibold text-gray-700 mb-1">Tanggal Keberangkatan</label>
+                        <input type="date" id="p_tanggal" required class="w-full px-4 py-2 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150 bg-white">
+                    </div>
+
+                    <!-- Jumlah Penumpang -->
+                    <div>
+                        <label for="p_penumpang" class="block text-sm font-semibold text-gray-700 mb-1">Jumlah Penumpang</label>
+                        <input type="number" id="p_penumpang" required min="1" value="1" class="w-full px-4 py-2 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Min 1">
+                    </div>
+
+                    <!-- Catatan Tambahan (Full Width) -->
+                    <div class="md:col-span-2">
+                        <label for="p_catatan" class="block text-sm font-semibold text-gray-700 mb-1">Catatan Tambahan (Opsional)</label>
+                        <textarea id="p_catatan" rows="2" class="w-full px-4 py-2 border border-sky-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Permintaan khusus..."></textarea>
+                    </div>
+
+                    <!-- Tombol Submit (Full Width) -->
+                    <div class="md:col-span-2 text-center">
+                        <button id="submit-button" type="submit" class="w-full md:w-2/3 color-primary text-white text-xl font-bold px-8 py-3 rounded-full shadow-lg hover:bg-sky-600 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accent/50">
+                            Konfirmasi & Cetak Tiket
+                        </button>
+                        <!-- Loading State -->
+                        <div id="loading-state" class="hidden w-full md:w-2/3 mx-auto color-primary text-white text-xl font-bold px-8 py-3 rounded-full shadow-lg transition duration-300 justify-center items-center">
+                             <div class="spinner-small mr-3"></div> Memproses...
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Pesan Error/Validasi (Tanpa alert) -->
+                <div id="error-message" class="hidden mt-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg text-center text-sm" role="alert">
+                    Mohon lengkapi semua kolom yang wajib diisi.
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian E-Ticket Siap Cetak (Disembunyikan Awalnya) -->
+        <section id="ticket-print-section" class="hidden py-10">
+            <div data-aos="zoom-in" class="max-w-xl mx-auto ticket-mockup p-8 sm:p-10 rounded-2xl">
+                
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-extrabold text-accent border-b border-primary/50 pb-2">
+                        E-TICKET BERHASIL DICETAK!
+                    </h2>
+                    <p class="text-sm text-gray-600 mt-1 no-print">Siap untuk dicetak atau disimpan digital.</p>
+                </div>
+
+                <div id="ticket-details">
+                    <!-- Detail tiket akan di-inject di sini oleh JavaScript -->
+                </div>
+
+                <div class="mt-8 text-center">
+                    <div class="barcode mb-4"></div>
+                    <p class="text-sm font-bold text-gray-800">
+                        Kode Booking: <span id="booking-code" class="text-accent">JT89C6A</span>
+                    </p>
+                    <p class="text-xs text-gray-500 mt-1">Tunjukkan kode ini saat check-in.</p>
+                </div>
+
+                <div class="mt-8 text-center no-print">
+                    <button onclick="window.print()" class="color-primary text-white font-bold px-6 py-3 rounded-lg shadow-xl hover:bg-sky-600 transition duration-300">
+                        Cetak Tiket Sekarang
+                    </button>
+                    <a href="travel_website.html" class="ml-4 text-gray-600 hover:text-accent font-medium text-sm">Kembali ke Beranda</a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- Bagian JavaScript ---
+
+        // 1. Inisialisasi AOS saat load
+        window.addEventListener('load', () => {
+            AOS.init({ duration: 800, once: true });
+        });
+
+        // 2. Logika Pemesanan dan Pencetakan Tiket
+        document.getElementById('ticket-form').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const form = e.target;
+            const errorMessage = document.getElementById('error-message');
+            const submitButton = document.getElementById('submit-button');
+            const loadingState = document.getElementById('loading-state');
+
+            // Validasi sederhana
+            if (!form.checkValidity()) {
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+            
+            errorMessage.classList.add('hidden');
+            
+            // Tampilkan Loading State dan nonaktifkan tombol
+            submitButton.classList.add('hidden');
+            loadingState.classList.add('flex');
+            loadingState.classList.remove('hidden');
+
+            // --- Simulasi Proses Instan (500ms) ---
+            setTimeout(() => {
+                
+                // Ambil Nilai dari Form
+                const nama = document.getElementById('p_nama').value;
+                const email = document.getElementById('p_email').value;
+                const tanggalInput = document.getElementById('p_tanggal').value;
+                const penumpang = document.getElementById('p_penumpang').value;
+                const catatan = document.getElementById('p_catatan').value;
+                const destinasi = "Bali, Indonesia"; // Hardcoded untuk contoh ini
+                
+                // Format Tanggal
+                const dateObj = new Date(tanggalInput);
+                const tanggalFormat = dateObj.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                
+                // Fungsi untuk membuat kode booking acak
+                const generateBookingCode = () => {
+                    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                    let result = '';
+                    for (let i = 0; i < 7; i++) {
+                        result += characters.charAt(Math.floor(Math.random() * characters.length));
+                    }
+                    return result;
+                };
+
+                const bookingCode = generateBookingCode();
+
+                // 3. Buat Konten E-Ticket
+                const ticketDetailsHtml = `
+                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                        <div class="border-b border-gray-200 pb-2">
+                            <p class="text-xs text-gray-500 uppercase">Nama Penumpang</p>
+                            <p class="font-bold text-gray-900">${nama}</p>
+                        </div>
+                        <div class="border-b border-gray-200 pb-2">
+                            <p class="text-xs text-gray-500 uppercase">Jumlah</p>
+                            <p class="font-bold text-gray-900">${penumpang} Orang</p>
+                        </div>
+                        <div class="border-b border-gray-200 pb-2">
+                            <p class="text-xs text-gray-500 uppercase">Dari</p>
+                            <p class="font-bold text-gray-900">Jakarta (CGK)</p>
+                        </div>
+                        <div class="border-b border-gray-200 pb-2">
+                            <p class="text-xs text-gray-500 uppercase">Tujuan</p>
+                            <p class="font-bold text-accent">${destinasi}</p>
+                        </div>
+                        <div class="border-b border-gray-200 pb-2 col-span-2">
+                            <p class="text-xs text-gray-500 uppercase">Tanggal Keberangkatan</p>
+                            <p class="text-lg font-extrabold text-accent">${tanggalFormat}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-sky-100 rounded-lg">
+                        <p class="text-xs text-gray-600 uppercase">Catatan Khusus</p>
+                        <p class="text-sm font-medium text-gray-800">${catatan || 'Tidak ada catatan.'}</p>
+                    </div>
+                `;
+
+                document.getElementById('ticket-details').innerHTML = ticketDetailsHtml;
+                document.getElementById('booking-code').textContent = bookingCode;
+                
+                // 4. Tampilkan E-Ticket dan Sembunyikan Form
+                loadingState.classList.remove('flex');
+                loadingState.classList.add('hidden');
+                document.getElementById('booking-section').classList.add('hidden');
+                document.getElementById('ticket-print-section').classList.remove('hidden');
+
+                // Scroll ke bagian tiket
+                document.getElementById('ticket-print-section').scrollIntoView({ behavior: 'smooth' });
+
+            }, 500); // Waktu tunda 500ms untuk simulasi instan
+        });
+    </script>
+    <!-- Memuat AOS dari CDN -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

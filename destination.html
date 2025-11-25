@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Destinasi - Jelajah.id</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Memuat Font Google (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/paper_plane_icon.png" type="image/x-icon">
+    <style>
+        /* Menggunakan font Inter secara default */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Biru sangat muda (Tailwind sky-50) */
+        }
+        /* Definisi Warna Biru Kustom (Tetap konsisten) */
+        .color-primary {
+            background-color: #0ea5e9; 
+        }
+        .text-accent {
+            color: #0ea5e9;
+        }
+        .border-primary {
+            border-color: #0ea5e9;
+        }
+        /* Responsif untuk gambar pada kartu */
+        .card-image {
+            height: 250px; 
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigasi Bar (Versi Sederhana) -->
+    <nav class="sticky-nav bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex-shrink-0 flex items-center text-xl font-extrabold text-gray-900">
+                    &larr; Kembali ke Beranda
+                </a>
+                <span class="text-xl font-bold text-accent">Destinasi Kami</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- Header Daftar Destinasi -->
+        <div class="text-center mb-12 py-6">
+            <h1 data-aos="fade-up" class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">
+                Daftar Lengkap Destinasi Eksotis
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-gray-600">
+                Temukan keindahan pantai tak tertandingi dan beberapa kejutan kota.
+            </p>
+        </div>
+
+        <!-- Daftar Destinasi (Grid) -->
+        <section id="destinations" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            <!-- Destinasi 1: Raja Ampat (Pantai) -->
+            <div data-aos="zoom-in" data-aos-delay="100" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition duration-300 border border-sky-100">
+                <img
+                    class="w-full card-image"
+                    src="img/experience1.jpg"
+                    alt="Gambar Raja Ampat"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x600/0ea5e9/ffffff?text=RAJA+AMPAT';"
+                >
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Raja Ampat, Indonesia</h3>
+                    <p class="text-gray-600 text-sm mb-4">Surga bawah laut dengan keanekaragaman hayati terbaik di dunia. Cocok untuk *snorkeling* dan *diving*.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-accent">Rp 5.200.000</span>
+                        <a href="checkout.html" class="color-primary text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-sky-600 transition duration-300">
+                            Pesan Sekarang &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destinasi 2: Phuket (Pantai) -->
+            <div data-aos="zoom-in" data-aos-delay="200" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition duration-300 border border-sky-100">
+                <img
+                    class="w-full card-image"
+                    src="img/discover4.jpg"
+                    alt="Gambar Phuket"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x600/0ea5e9/ffffff?text=PHUKET+THAILAND';"
+                >
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Phuket, Thailand</h3>
+                    <p class="text-gray-600 text-sm mb-4">Pantai pasir putih, kehidupan malam yang ramai, dan kuil-kuil Buddha yang megah.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-accent">Rp 3.800.000</span>
+                        <a href="checkout.html" class="color-primary text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-sky-600 transition duration-300">
+                            Pesan Sekarang &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destinasi 3: Maldives (Pantai Mewah) -->
+            <div data-aos="zoom-in" data-aos-delay="300" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition duration-300 border border-sky-100">
+                <img
+                    class="w-full card-image"
+                    src="img/experience2.jpg"
+                    alt="Gambar Maldives"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x600/0ea5e9/ffffff?text=MALDIVES+RESORT';"
+                >
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Maldives, Asia Selatan</h3>
+                    <p class="text-gray-600 text-sm mb-4">Pulau resor pribadi dengan *bungalow* di atas air. Liburan romantis impian.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-accent">Rp 12.500.000</span>
+                        <a href="checkout.html" class="color-primary text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-sky-600 transition duration-300">
+                            Pesan Sekarang &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Destinasi 4: Labuan Bajo (Pantai & Unik) -->
+            <div data-aos="zoom-in" data-aos-delay="400" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition duration-300 border border-sky-100">
+                <img
+                    class="w-full card-image"
+                    src="img/discover2.jpg"
+                    alt="Gambar Labuan Bajo"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x600/0ea5e9/ffffff?text=LABUAN+BAJO';"
+                >
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Labuan Bajo, Indonesia</h3>
+                    <p class="text-gray-600 text-sm mb-4">Gerbang menuju Taman Nasional Komodo dan Pink Beach yang ikonik.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-accent">Rp 4.500.000</span>
+                        <a href="checkout.html" class="color-primary text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-sky-600 transition duration-300">
+                            Pesan Sekarang &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destinasi 5: Rio de Janeiro (Pantai & Kota) -->
+            <div data-aos="zoom-in" data-aos-delay="500" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition duration-300 border border-sky-100">
+                <img
+                    class="w-full card-image"
+                    src="img/BRAZIL.avif"
+                    alt="Gambar Rio de Janeiro"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x600/0ea5e9/ffffff?text=RIO+DE+JANEIRO';"
+                >
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Rio de Janeiro, Brasil</h3>
+                    <p class="text-gray-600 text-sm mb-4">Kota yang terkenal dengan pantai Copacabana, patung Kristus Penebus, dan karnaval.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-accent">Rp 8.700.000</span>
+                        <a href="checkout.html" class="color-primary text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-sky-600 transition duration-300">
+                            Pesan Sekarang &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destinasi 6: Tokyo (Kota - Minimal) -->
+            <div data-aos="zoom-in" data-aos-delay="600" class="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition duration-300 border border-sky-100">
+                <img
+                    class="w-full card-image"
+                    src="img/Japan 1.jpg"
+                    alt="Gambar Tokyo"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x600/0ea5e9/ffffff?text=TOKYO+JAPAN';"
+                >
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Tokyo, Jepang</h3>
+                    <p class="text-gray-600 text-sm mb-4">Pusat teknologi, fashion, dan budaya pop dunia. Pilihan bagi pecinta kota modern.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-accent">Rp 9.100.000</span>
+                        <a href="checkout.html" class="color-primary text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-sky-600 transition duration-300">
+                            Pesan Sekarang &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <p class="text-sm text-center text-gray-400">
+                &copy; 2024 Jelajah.id. Daftar Destinasi.
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Inisialisasi AOS saat load
+        window.addEventListener('load', () => {
+            AOS.init({ duration: 800, once: true });
+        });
+    </script>
+    <!-- Memuat AOS dari CDN -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>
